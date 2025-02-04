@@ -3,12 +3,44 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/../../무제 폴더/soop-app/build-logic" name="build-logic">
+                <projects>
+                  <project path="$PROJECT_DIR$/../../무제 폴더/soop-app/build-logic" />
+                  <project path="$PROJECT_DIR$/../../무제 폴더/soop-app/build-logic/convention" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="testRunner" value="CHOOSE_PER_TEST" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../../무제 폴더/soop-app" />
+            <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/app" />
+            <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/build-logic" />
+            <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/build-logic/convention" />
+          </set>
+        </option>
         <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/../../무제 폴더/soop-app/build-logic" name="build-logic">
+                <projects>
+                  <project path="$PROJECT_DIR$/../../무제 폴더/soop-app/build-logic" />
+                  <project path="$PROJECT_DIR$/../../무제 폴더/soop-app/build-logic/convention" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="testRunner" value="CHOOSE_PER_TEST" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/../../무제 폴더/soop-app" />
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
@@ -16,6 +48,8 @@
           <set>
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/app" />
+            <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/build-logic" />
+            <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/build-logic/convention" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
