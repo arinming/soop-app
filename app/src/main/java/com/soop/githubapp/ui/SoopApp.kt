@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.adaptive.WindowAdaptiveInfo
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
@@ -23,12 +21,12 @@ import com.soop.githubapp.navigation.SoopNavHost
 @Composable
 fun SoopApp(
     appState: SoopAppState,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
 ) {
     val focusManager = LocalFocusManager.current
 
     Scaffold(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .addFocusCleaner(focusManager),
         containerColor = Color.Transparent,
