@@ -5,6 +5,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -20,6 +21,13 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                     consumerProguardFiles("consumer-rules.pro")
                 }
+                testOptions.animationsDisabled = true
+            }
+            dependencies {
+                "androidTestImplementation"(libs.findLibrary("kotlin.test").get())
+                "testImplementation"(libs.findLibrary("kotlin.test").get())
+
+                "implementation"(libs.findLibrary("androidx.tracing.ktx").get())
             }
         }
     }
