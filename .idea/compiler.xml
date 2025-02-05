@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="21" />
+    <bytecodeTargetLevel target="21">
+      <module name="githubapp.build-logic.convention" target="11" />
+      <module name="githubapp.build-logic.convention.main" target="11" />
+      <module name="githubapp.build-logic.convention.test" target="11" />
+      <module name="githubapp.core.domain.test" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
