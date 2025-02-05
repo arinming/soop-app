@@ -2,6 +2,7 @@
 androidxComposeFoundation = "1.8.0-alpha07"
 androidxComposeBom = "2024.12.01"
 androidxComposeRuntimeTracing = "1.7.6"
+androidDesugarJdkLibs = "2.1.4"
 androidGradlePlugin = "8.8.0"
 androidxLifecycle = "2.8.7"
 androidxNavigation = "2.8.5"
@@ -12,16 +13,19 @@ kotlin = "2.1.0"
 kotlinxCoroutines = "1.10.1"
 kotlinxDatetime = "0.6.1"
 kotlinxSerializationJson = "1.8.0"
-coreKtx = "1.15.0"
+coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.10.0"
+activityCompose = "1.9.0"
 composeBom = "2024.04.01"
 jetbrainsKotlinJvm = "2.0.0"
-appcompat = "1.7.0"
+appcompat = "1.6.1"
 material = "1.12.0"
+
+hilt = "2.54"
+hiltExt = "1.2.0"
 
 ksp = "2.1.0-1.0.29"
 room = "2.6.1"
@@ -73,6 +77,15 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-tracing-ktx = { group = "androidx.tracing", name = "tracing-ktx", version.ref = "androidxTracing" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
 
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
+hilt-ext-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltExt" }
+hilt-ext-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltExt" }
+
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -80,13 +93,16 @@ compose-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 # Plugins defined by arinming
 soop-android-application = { id = "soop.android.application" }

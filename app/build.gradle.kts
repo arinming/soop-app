@@ -1,11 +1,15 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.soop.android.application)
+    alias(libs.plugins.soop.android.application.compose)
+    alias(libs.plugins.soop.hilt)
 }
 
 android {
     namespace = "com.soop.githubapp"
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -18,14 +22,20 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material3.adaptive)
     implementation(libs.androidx.compose.material3.adaptive.layout)
     implementation(libs.androidx.compose.material3.adaptive.navigation)
     implementation(libs.androidx.compose.material3.windowSizeClass)
     implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
+
+    ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)
 
