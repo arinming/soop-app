@@ -121,7 +121,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 # Plugins defined by arinming
 soop-android-application = { id = "soop.android.application" }
 soop-android-application-compose = { id = "soop.android.application.compose" }
-soop-android-application-feature = { id = "soop.android.application.feature" }
+soop-android-feature = { id = "soop.android.feature" }
 soop-android-library = { id = "soop.android.library" }
 soop-android-library-compose = { id = "soop.android.library.compose" }
 soop-hilt = { id = "soop.hilt" }

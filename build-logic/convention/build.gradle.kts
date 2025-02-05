@@ -35,8 +35,8 @@ gradlePlugin {
             id = "soop.android.application.compose"
             implementationClass = "AndroidApplicationComposeConventionPlugin"
         }
-        register("androidApplicationFeature") {
-            id = "soop.android.application.feature"
+        register("androidFeature") {
+            id = "soop.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
         }
         register("androidLibrary") {

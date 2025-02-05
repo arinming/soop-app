@@ -28,8 +28,11 @@ android {
 }
 
 dependencies {
+    implementation(projects.feature.search)
+
     implementation(projects.core.designsystem)
     implementation(projects.core.data)
+    implementation(projects.core.model)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
