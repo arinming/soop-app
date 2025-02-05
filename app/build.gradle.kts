@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.soop.android.application)
     alias(libs.plugins.soop.android.application.compose)
     alias(libs.plugins.soop.hilt)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -17,6 +18,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
 }
