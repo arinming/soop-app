@@ -12,4 +12,6 @@ dependencies {
     api(projects.core.model)
 
     implementation(libs.javax.inject)
+
+    testImplementation(projects.core.testing)
 }

@@ -30,6 +30,7 @@ android {
 dependencies {
     implementation(projects.feature.search)
 
+    implementation(projects.core.common)
     implementation(projects.core.designsystem)
     implementation(projects.core.data)
     implementation(projects.core.model)
@@ -48,8 +49,15 @@ dependencies {
 
     ksp(libs.hilt.compiler)
 
-    testImplementation(libs.junit)
+    testImplementation(libs.hilt.android.testing)
+    testImplementation(libs.kotlin.test)
 
+    testImplementation(libs.androidx.navigation.testing)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.roborazzi)
+    testImplementation(projects.core.testing)
+
+    androidTestImplementation(projects.core.testing)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

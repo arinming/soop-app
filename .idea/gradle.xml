@@ -26,11 +26,13 @@
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/build-logic" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/build-logic/convention" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core" />
+            <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core/common" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core/data" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core/designsystem" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core/domain" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core/model" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core/network" />
+            <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core/testing" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/feature" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/feature/search" />
           </set>
@@ -60,11 +62,13 @@
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/build-logic" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/build-logic/convention" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core" />
+            <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core/common" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core/data" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core/designsystem" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core/domain" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core/model" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core/network" />
+            <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/core/testing" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/feature" />
             <option value="$PROJECT_DIR$/../../무제 폴더/soop-app/feature/search" />
           </set>
