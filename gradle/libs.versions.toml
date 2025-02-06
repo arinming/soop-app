@@ -37,6 +37,7 @@ room = "2.6.1"
 
 ksp = "2.1.0-1.0.29"
 turbine = "1.2.0"
+timber = "5.0.1"
 
 # SOOP versions
 applicationId = "com.soop.githubapp"
@@ -112,6 +113,7 @@ robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "
 roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
 
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }

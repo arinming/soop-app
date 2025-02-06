@@ -18,6 +18,7 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
+    implementation(libs.timber)
 
     testImplementation(libs.kotlinx.coroutines.test)
 }
