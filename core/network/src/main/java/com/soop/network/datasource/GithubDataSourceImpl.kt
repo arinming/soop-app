@@ -1,6 +1,7 @@
-package com.soop.network
+package com.soop.network.datasource
 
 import com.soop.network.model.NetworkGithubData
+import com.soop.network.service.GithubService
 import javax.inject.Inject
 
 class GithubDataSourceImpl @Inject constructor(

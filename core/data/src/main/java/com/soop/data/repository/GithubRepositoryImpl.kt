@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.soop.data.GithubPagingSource
 import com.soop.model.GithubRepositoryInfo
-import com.soop.network.GithubDataSource
+import com.soop.network.datasource.GithubDataSource
 import com.soop.network.model.asExternalModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

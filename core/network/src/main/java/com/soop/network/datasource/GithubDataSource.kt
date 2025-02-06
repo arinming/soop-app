@@ -1,4 +1,4 @@
-package com.soop.network
+package com.soop.network.datasource
 
 import com.soop.network.model.NetworkGithubData
 

@@ -1,4 +1,4 @@
-package com.soop.network
+package com.soop.network.service
 
 import com.soop.network.model.NetworkGithubData
 import retrofit2.http.GET

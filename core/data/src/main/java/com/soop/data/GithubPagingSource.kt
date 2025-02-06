@@ -2,7 +2,7 @@ package com.soop.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.soop.network.GithubDataSource
+import com.soop.network.datasource.GithubDataSource
 import com.soop.network.model.Repository
 
 class GithubPagingSource(
