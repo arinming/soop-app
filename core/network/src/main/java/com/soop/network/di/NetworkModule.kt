@@ -74,4 +74,4 @@ object NetworkModule {
     }
 }
 
-private const val SOOP_BASE_URL = BuildConfig.BACKEND_URL
+private const val SOOP_BASE_URL = "https://api.github.com"
