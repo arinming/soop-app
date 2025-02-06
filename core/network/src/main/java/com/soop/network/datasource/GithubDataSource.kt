@@ -2,6 +2,7 @@ package com.soop.network.datasource
 
 import com.soop.network.model.NetworkGithubData
 import com.soop.network.model.NetworkRepositoryDetail
+import com.soop.network.model.NetworkUserDetail
 
 interface GithubDataSource {
     suspend fun getGithub(
@@ -16,4 +17,8 @@ interface GithubDataSource {
         owner: String,
         repo: String
     ): NetworkRepositoryDetail
+
+    suspend fun getUserDetail(
+        username: String
+    ): NetworkUserDetail
 }
