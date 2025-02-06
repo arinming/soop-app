@@ -1,7 +1,10 @@
 package com.soop.network.model
 
+import com.soop.model.RepositoryDetail
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class NetworkRepositoryDetail(
     @SerialName("id")
     val id: Long,
@@ -27,6 +30,7 @@ data class NetworkRepositoryDetail(
     val openIssuesCount: Int
 )
 
+@Serializable
 data class OwnerDetail(
     @SerialName("login")
     val login: String,
@@ -37,3 +41,14 @@ data class OwnerDetail(
     @SerialName("html_url")
     val htmlUrl: String
 )
+
+fun NetworkRepositoryDetail.asExternalModel(): RepositoryDetail =
+    RepositoryDetail(
+        userName = ownerDetail.login,
+        avatarUrl = ownerDetail.avatarUrl,
+        repoName = name,
+        stargazersCount = stargazersCount,
+        watchersCount = watchersCount,
+        forksCount = forksCount,
+        description = description
+    )

@@ -6,9 +6,11 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.soop.data.GithubPagingSource
 import com.soop.model.GithubRepositoryInfo
+import com.soop.model.RepositoryDetail
 import com.soop.network.datasource.GithubDataSource
 import com.soop.network.model.asExternalModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -27,6 +29,15 @@ class GithubRepositoryImpl @Inject constructor(
             pagingData.map {
                 it.second.asExternalModel()
             }
+        }
+    }
+
+    override fun getRepositoryDetail(
+        owner: String, repo: String
+    ): Flow<RepositoryDetail> {
+        return flow {
+            val networkRepoDetail = dataSource.getRepositoryDetail(owner, repo)
+            emit(networkRepoDetail.asExternalModel())
         }
     }
 }

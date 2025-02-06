@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.soop.data.repository.GithubRepository
 import com.soop.model.GithubRepositoryInfo
+import com.soop.model.RepositoryDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -21,11 +22,23 @@ class SearchViewModel @Inject constructor(
     private val _githubFlow: MutableStateFlow<Flow<PagingData<GithubRepositoryInfo>>> =
         MutableStateFlow(emptyFlow())
 
+    private val _repositoryFlow: MutableStateFlow<Flow<RepositoryDetail>> =
+        MutableStateFlow(emptyFlow())
+    val repositoryFlow: Flow<RepositoryDetail> =
+        _repositoryFlow.flatMapLatest { it }
+
     @OptIn(ExperimentalCoroutinesApi::class)
     val githubFlow: Flow<PagingData<GithubRepositoryInfo>> =
         _githubFlow.flatMapLatest { it }
 
     fun getGithubData(query: String) {
         _githubFlow.value = githubRepository.getGithub(query).cachedIn(viewModelScope)
+    }
+
+    fun getRepositoryDetail() {
+        _repositoryFlow.value = githubRepository.getRepositoryDetail(
+            owner = "octocat",
+            repo = "Hello-World"
+        )
     }
 }
