@@ -34,14 +34,12 @@ data class Owner(
     val avatarUrl: String
 )
 
-fun NetworkGithubData.asExternalModel(): List<GithubRepositoryInfo> =
-    repositories.map { repo ->
-        GithubRepositoryInfo(
-            name = repo.name,
-            description = repo.description,
-            stars = repo.stars,
-            language = repo.language,
-            username = repo.owner.username,
-            avatarUrl = repo.owner.avatarUrl
-        )
-    }
+fun Repository.asExternalModel(): GithubRepositoryInfo =
+    GithubRepositoryInfo(
+        name = this.name,
+        description = this.description,
+        stars = this.stars,
+        language = this.language,
+        username = this.owner.username,
+        avatarUrl = this.owner.avatarUrl
+    )

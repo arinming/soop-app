@@ -25,13 +25,7 @@ class SearchViewModel @Inject constructor(
     val githubFlow: Flow<PagingData<GithubRepositoryInfo>> =
         _githubFlow.flatMapLatest { it }
 
-    fun getGithubData() {
-        refreshGithubFLow()
-    }
-
-    private fun refreshGithubFLow() {
-        _githubFlow.value = githubRepository.getGithub(
-            ""
-        ).cachedIn(viewModelScope)
+    fun getGithubData(query: String) {
+        _githubFlow.value = githubRepository.getGithub(query).cachedIn(viewModelScope)
     }
 }
