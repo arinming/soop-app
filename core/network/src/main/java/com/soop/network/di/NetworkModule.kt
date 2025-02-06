@@ -1,6 +1,7 @@
 package com.soop.network.di
 
 import androidx.tracing.trace
+import com.soop.network.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,21 +61,17 @@ object NetworkModule {
     fun okHttpCallFactory(
         loggingInterceptor: Interceptor
     ): Call.Factory = trace("DaangnOkHttpClient") {
-        OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .build()
+        OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
     }
 
     @Provides
     @Singleton
     fun provideRetrofit(
-        jsonConverter: Converter.Factory,
-        okHttpCallFactory: Call.Factory
+        jsonConverter: Converter.Factory, okHttpCallFactory: Call.Factory
     ): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://picsum.photos")
-            .addConverterFactory(jsonConverter)
-            .callFactory(okHttpCallFactory)
-            .build()
+        return Retrofit.Builder().baseUrl(SOOP_BASE_URL).addConverterFactory(jsonConverter)
+            .callFactory(okHttpCallFactory).build()
     }
 }
+
+private const val SOOP_BASE_URL = BuildConfig.BACKEND_URL

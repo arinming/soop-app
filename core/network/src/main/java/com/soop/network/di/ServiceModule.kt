@@ -1,6 +1,6 @@
 package com.soop.network.di
 
-import com.soop.network.RepositoryService
+import com.soop.network.GithubService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +13,6 @@ import javax.inject.Singleton
 object ServiceModule {
     @Provides
     @Singleton
-    fun provideRepositoryService(retrofit: Retrofit): RepositoryService =
-        retrofit.create(RepositoryService::class.java)
+    fun provideGithubService(retrofit: Retrofit): GithubService =
+        retrofit.create(GithubService::class.java)
 }

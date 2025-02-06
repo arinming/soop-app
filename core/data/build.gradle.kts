@@ -17,6 +17,8 @@ dependencies {
     api(projects.core.common)
     api(projects.core.network)
 
+    implementation(libs.paging.common)
+
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.kotlinx.serialization.json)
