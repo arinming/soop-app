@@ -20,12 +20,9 @@ internal fun SearchRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(true) {
-        viewModel.getGithubData(
-            query = "android"
-        )
-        viewModel.getRepositoryDetail()
+        viewModel.getUserDetail()
     }
-    val repository = viewModel.repositoryFlow.collectAsState(
+    val repository = viewModel.userFlow.collectAsState(
         lifecycleOwner
     )
 

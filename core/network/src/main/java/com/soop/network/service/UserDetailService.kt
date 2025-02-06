@@ -7,7 +7,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface UserDetailService {
-    @GET("/users/{username}/repos")
+    @GET("/users/{username}")
     suspend fun getUserDetail(
         @Path("username") username: String,
     ): NetworkUserDetail

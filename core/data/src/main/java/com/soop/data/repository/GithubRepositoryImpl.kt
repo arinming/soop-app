@@ -7,6 +7,7 @@ import androidx.paging.map
 import com.soop.data.GithubPagingSource
 import com.soop.model.GithubRepositoryInfo
 import com.soop.model.RepositoryDetail
+import com.soop.model.UserDetail
 import com.soop.network.datasource.GithubDataSource
 import com.soop.network.model.asExternalModel
 import kotlinx.coroutines.flow.Flow
@@ -38,6 +39,15 @@ class GithubRepositoryImpl @Inject constructor(
         return flow {
             val networkRepoDetail = dataSource.getRepositoryDetail(owner, repo)
             emit(networkRepoDetail.asExternalModel())
+        }
+    }
+
+    override fun getUserDetail(
+        username: String
+    ): Flow<UserDetail> {
+        return flow {
+            val networkUserDetail = dataSource.getUserDetail(username)
+            emit(networkUserDetail.asExternalModel())
         }
     }
 }
