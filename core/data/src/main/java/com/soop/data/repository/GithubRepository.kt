@@ -4,6 +4,7 @@ import androidx.paging.PagingData
 import com.soop.model.GithubRepositoryInfo
 import com.soop.model.RepositoryDetail
 import com.soop.model.UserDetail
+import com.soop.model.UserLanguage
 import kotlinx.coroutines.flow.Flow
 
 interface GithubRepository {
@@ -19,4 +20,8 @@ interface GithubRepository {
     fun getUserDetail(
         username: String
     ): Flow<UserDetail>
+
+    fun getUserLanguage(
+        username: String
+    ): Flow<List<UserLanguage>>
 }

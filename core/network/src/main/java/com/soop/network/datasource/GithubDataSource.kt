@@ -3,6 +3,7 @@ package com.soop.network.datasource
 import com.soop.network.model.NetworkGithubData
 import com.soop.network.model.NetworkRepositoryDetail
 import com.soop.network.model.NetworkUserDetail
+import com.soop.network.model.NetworkUserLanguage
 
 interface GithubDataSource {
     suspend fun getGithub(
@@ -21,4 +22,8 @@ interface GithubDataSource {
     suspend fun getUserDetail(
         username: String
     ): NetworkUserDetail
+
+    suspend fun getUserLanguage(
+        username: String
+    ): List<NetworkUserLanguage>
 }

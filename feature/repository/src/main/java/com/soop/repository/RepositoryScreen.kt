@@ -76,6 +76,7 @@ internal fun RepositoryScreen(
                         onDismissRequest = onDismissRequest,
                         content = {
                             UserInfoBottomSheet(
+                                language = repositoryUiState.userLanguage,
                                 userDetail = repositoryUiState.userDetail
                             )
                         },
@@ -112,10 +113,13 @@ fun RepositoryDetail(
 
 @Composable
 fun UserInfoBottomSheet(
+    language: List<String> = emptyList(),
     userDetail: UserDetail
 ) {
     Column {
         Text("${userDetail.followers}")
+        Text("${userDetail.following}")
+        Text("$language")
     }
 }
 

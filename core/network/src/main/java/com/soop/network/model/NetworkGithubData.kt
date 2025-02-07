@@ -16,6 +16,8 @@ data class NetworkGithubData(
 data class Repository(
     @SerialName("name")
     val name: String,
+    @SerialName("full_name")
+    val fullName: String,
     @SerialName("owner")
     val owner: Owner,
     @SerialName("description")
@@ -36,7 +38,8 @@ data class Owner(
 
 fun Repository.asExternalModel(): GithubRepositoryInfo =
     GithubRepositoryInfo(
-        name = this.name,
+        name = this.owner.username,
+        fullName = this.fullName,
         description = this.description,
         stars = this.stars,
         language = this.language,

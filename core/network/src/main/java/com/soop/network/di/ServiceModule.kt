@@ -3,6 +3,7 @@ package com.soop.network.di
 import com.soop.network.service.GithubService
 import com.soop.network.service.RepositoryDetailService
 import com.soop.network.service.UserDetailService
+import com.soop.network.service.UserLanguageService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,4 +28,9 @@ object ServiceModule {
     @Singleton
     fun provideUserDetailService(retrofit: Retrofit): UserDetailService =
         retrofit.create(UserDetailService::class.java)
+
+    @Provides
+    @Singleton
+    fun providerUserRepositoryService(retrofit: Retrofit): UserLanguageService =
+        retrofit.create(UserLanguageService::class.java)
 }

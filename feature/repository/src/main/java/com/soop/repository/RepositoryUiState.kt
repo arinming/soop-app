@@ -8,6 +8,7 @@ sealed interface RepositoryUiState {
     data object Error : RepositoryUiState
     data class Success(
         val repositoryDetail: RepositoryDetail,
-        val userDetail: UserDetail
+        val userDetail: UserDetail,
+        val userLanguage: List<String>
     ) : RepositoryUiState
 }

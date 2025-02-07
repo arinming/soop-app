@@ -29,11 +29,13 @@ class RepositoryViewModel @Inject constructor(
     val repositoryUiState: StateFlow<RepositoryUiState> =
         combine(
             githubRepository.getRepositoryDetail(owner, repo),
-            githubRepository.getUserDetail(owner)
-        ) { repositoryDetail, userDetail ->
+            githubRepository.getUserDetail(owner),
+            githubRepository.getUserLanguage(owner),
+        ) { repositoryDetail, userDetail, userLanguage ->
             RepositoryUiState.Success(
                 repositoryDetail = repositoryDetail,
-                userDetail = userDetail
+                userDetail = userDetail,
+                userLanguage = userLanguage.map { it.language }
             )
         }
             .stateIn(

@@ -8,6 +8,7 @@ import com.soop.data.GithubPagingSource
 import com.soop.model.GithubRepositoryInfo
 import com.soop.model.RepositoryDetail
 import com.soop.model.UserDetail
+import com.soop.model.UserLanguage
 import com.soop.network.datasource.GithubDataSource
 import com.soop.network.model.asExternalModel
 import kotlinx.coroutines.flow.Flow
@@ -48,6 +49,13 @@ class GithubRepositoryImpl @Inject constructor(
         return flow {
             val networkUserDetail = dataSource.getUserDetail(username)
             emit(networkUserDetail.asExternalModel())
+        }
+    }
+
+    override fun getUserLanguage(username: String): Flow<List<UserLanguage>> {
+        return flow {
+            val networkUserLanguage = dataSource.getUserLanguage(username)
+            emit(networkUserLanguage.map { it.asExternalModel() })
         }
     }
 }
