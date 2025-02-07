@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.soop.githubapp.ui.SoopAppState
+import com.soop.repository.navigation.navigateToRepository
+import com.soop.repository.navigation.repositoryScreen
 import com.soop.search.SearchBaseRoute
 import com.soop.search.searchSection
 
@@ -19,6 +21,12 @@ fun SoopNavHost(
         startDestination = SearchBaseRoute,
         modifier = modifier
     ) {
-        searchSection()
+        searchSection(
+            onRepositoryClick = { owner, repo ->
+                navController.navigateToRepository(owner = owner, repo = repo)
+            }
+        ) {
+            repositoryScreen()
+        }
     }
 }

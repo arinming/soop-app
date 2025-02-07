@@ -17,20 +17,19 @@ data object SearchBaseRoute
 fun NavController.navigateToSearch(
     navOptions: NavOptionsBuilder.() -> Unit = {}
 ) {
-    navigate(
-        route = SearchRoute
-    ) {
-        popUpTo(graph.startDestinationId) { inclusive = true }
-        launchSingleTop = true
-        navOptions()
-    }
+    navigate(SearchRoute, navOptions)
 }
 
 fun NavGraphBuilder.searchSection(
+    onRepositoryClick: (String, String) -> Unit,
+    repositoryDestination: NavGraphBuilder.() -> Unit
 ) {
     navigation<SearchBaseRoute>(startDestination = SearchRoute) {
         composable<SearchRoute> {
-            SearchRoute()
+            SearchRoute(
+                onRepositoryClick = onRepositoryClick
+            )
         }
+        repositoryDestination()
     }
 }

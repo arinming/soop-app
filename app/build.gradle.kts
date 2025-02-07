@@ -28,6 +28,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.feature.repository)
     implementation(projects.feature.search)
 
     implementation(projects.core.common)

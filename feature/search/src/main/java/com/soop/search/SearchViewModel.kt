@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import androidx.paging.map
 import com.soop.data.repository.GithubRepository
 import com.soop.model.GithubRepositoryInfo
 import com.soop.model.RepositoryDetail
@@ -18,10 +17,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,8 +30,8 @@ class SearchViewModel @Inject constructor(
 
     val searchUiState: StateFlow<SearchUiState> =
         githubRepository.getGithub(searchQuery.value)
-            .map { pagingData ->
-                SearchUiState.Success(pagingData)
+            .map {
+                SearchUiState.Success
             }
             .stateIn(
                 scope = viewModelScope,

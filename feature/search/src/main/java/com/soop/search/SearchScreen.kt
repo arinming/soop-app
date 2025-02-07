@@ -1,6 +1,7 @@
 package com.soop.search
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,14 +16,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -32,14 +30,11 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.map
 import com.soop.designsystem.theme.Blue
 import com.soop.designsystem.theme.DarkGrey
 import com.soop.designsystem.theme.SoopTypography
@@ -47,6 +42,7 @@ import com.soop.model.GithubRepositoryInfo
 
 @Composable
 internal fun SearchRoute(
+    onRepositoryClick: (String, String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
@@ -61,6 +57,7 @@ internal fun SearchRoute(
         githubList = githubList,
         onSearchQueryChanged = viewModel::onSearchQueryChanged,
         onSearchTriggered = viewModel::onSearchTriggered,
+        onRepositoryClick = onRepositoryClick
     )
 }
 
@@ -72,6 +69,7 @@ fun SearchScreen(
     githubList: LazyPagingItems<GithubRepositoryInfo>,
     onSearchQueryChanged: (String) -> Unit = {},
     onSearchTriggered: (String) -> Unit = {},
+    onRepositoryClick: (String, String) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -84,10 +82,13 @@ fun SearchScreen(
         )
         when (searchUiState) {
             SearchUiState.Loading,
-            SearchUiState.LoadFailed -> Unit
+            SearchUiState.Error -> Unit
 
             is SearchUiState.Success -> {
-                SearchResultList(repositories = githubList)
+                SearchResultList(
+                    repositories = githubList,
+                    onRepositoryClick = onRepositoryClick
+                )
             }
         }
     }
@@ -96,6 +97,7 @@ fun SearchScreen(
 @Composable
 private fun SearchResultList(
     repositories: LazyPagingItems<GithubRepositoryInfo>,
+    onRepositoryClick: (String, String) -> Unit
 ) {
     val state = rememberLazyListState()
     Box(
@@ -111,11 +113,31 @@ private fun SearchResultList(
             items(repositories.itemCount) { index ->
                 val repo = repositories[index]
                 if (repo != null) {
-                    Text(text = repo.name)
+                    RepositoryItem(
+                        repository = repo,
+                        onClick = { onRepositoryClick(repo.username, repo.name) }
+                    )
                 }
             }
         }
     }
+}
+
+@Composable
+private fun RepositoryItem(
+    repository: GithubRepositoryInfo,
+    onClick: () -> Unit,
+) {
+    ListItem(
+        headlineContent = { Text(text = repository.name) },
+        supportingContent = { Text(text = repository.description ?: "") },
+        trailingContent = { Text(text = repository.stars.toString()) },
+        leadingContent = { Text(text = repository.language ?: "") },
+        modifier = Modifier.clickable(
+            enabled = true,
+            onClick = onClick
+        )
+    )
 }
 
 @Composable
