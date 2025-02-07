@@ -12,7 +12,7 @@ val PretendardRegular = FontFamily(Font(R.font.pretendard_regular))
 val PretendardMedium = FontFamily(Font(R.font.pretendard_medium))
 val PretendardSemibold = FontFamily(Font(R.font.pretendard_semibold))
 
-val Typography = Typography(
+val SoopTypography = Typography(
     displayLarge = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 50.sp,
