@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.soop.githubapp.ui.SoopApp
 import com.soop.githubapp.ui.rememberSoopAppState
-import com.soop.githubapp.ui.theme.GithubappTheme
+import com.soop.designsystem.theme.GithubappTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

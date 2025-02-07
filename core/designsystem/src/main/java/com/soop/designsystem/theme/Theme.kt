@@ -1,4 +1,4 @@
-package com.soop.githubapp.ui.theme
+package com.soop.designsystem.theme
 
 import android.app.Activity
 import android.os.Build
