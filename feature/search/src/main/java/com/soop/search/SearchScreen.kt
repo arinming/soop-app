@@ -1,19 +1,25 @@
 package com.soop.search
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsTopHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,11 +33,17 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.map
 import com.soop.designsystem.theme.Blue
 import com.soop.designsystem.theme.DarkGrey
 import com.soop.designsystem.theme.SoopTypography
+import com.soop.model.GithubRepositoryInfo
 
 @Composable
 internal fun SearchRoute(
@@ -40,11 +52,13 @@ internal fun SearchRoute(
 ) {
     val searchUiState by viewModel.searchUiState.collectAsStateWithLifecycle()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
+    val githubList = viewModel.githubFlow.collectAsLazyPagingItems()
 
     SearchScreen(
         modifier = modifier,
         searchQuery = searchQuery,
         searchUiState = searchUiState,
+        githubList = githubList,
         onSearchQueryChanged = viewModel::onSearchQueryChanged,
         onSearchTriggered = viewModel::onSearchTriggered,
     )
@@ -55,6 +69,7 @@ fun SearchScreen(
     modifier: Modifier = Modifier,
     searchQuery: String = "",
     searchUiState: SearchUiState = SearchUiState.Loading,
+    githubList: LazyPagingItems<GithubRepositoryInfo>,
     onSearchQueryChanged: (String) -> Unit = {},
     onSearchTriggered: (String) -> Unit = {},
 ) {
@@ -67,6 +82,39 @@ fun SearchScreen(
             onSearchQueryChanged = onSearchQueryChanged,
             onSearchTriggered = onSearchTriggered,
         )
+        when (searchUiState) {
+            SearchUiState.Loading,
+            SearchUiState.LoadFailed -> Unit
+
+            is SearchUiState.Success -> {
+                SearchResultList(repositories = githubList)
+            }
+        }
+    }
+}
+
+@Composable
+private fun SearchResultList(
+    repositories: LazyPagingItems<GithubRepositoryInfo>,
+) {
+    val state = rememberLazyListState()
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        LazyColumn(
+            contentPadding = PaddingValues(16.dp),
+            modifier = Modifier
+                .fillMaxSize(),
+            state = state
+        ) {
+            items(repositories.itemCount) { index ->
+                val repo = repositories[index]
+                if (repo != null) {
+                    Text(text = repo.name)
+                }
+            }
+        }
     }
 }
 
@@ -137,10 +185,4 @@ fun SearchTextField(
             unfocusedIndicatorColor = DarkGrey,
         ),
     )
-}
-
-@Preview
-@Composable
-fun SearchScreenPreview() {
-    SearchScreen()
 }

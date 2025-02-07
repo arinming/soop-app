@@ -5,8 +5,6 @@ import com.soop.model.GithubRepositoryInfo
 
 sealed interface SearchUiState {
     data object Loading : SearchUiState
-    data object EmptyQuery : SearchUiState
     data object LoadFailed : SearchUiState
-    data class Success(val data: PagingData<GithubRepositoryInfo>) : SearchUiState
-    data object SearchNotReady : SearchUiState
+    data class Success(val repositories: PagingData<GithubRepositoryInfo>) : SearchUiState
 }
