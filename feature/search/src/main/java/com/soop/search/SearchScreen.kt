@@ -2,6 +2,7 @@ package com.soop.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,14 +11,22 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Circle
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ListItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -29,16 +38,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.soop.designsystem.NetworkImage
 import com.soop.designsystem.theme.Blue
 import com.soop.designsystem.theme.DarkGrey
 import com.soop.designsystem.theme.SoopTypography
+import com.soop.designsystem.theme.languageColors
 import com.soop.model.GithubRepositoryInfo
 
 @Composable
@@ -139,17 +152,93 @@ private fun RepositoryItem(
     repository: GithubRepositoryInfo,
     onClick: () -> Unit,
 ) {
-    ListItem(
-        headlineContent = { Text(text = repository.name) },
-        supportingContent = { Text(text = repository.description ?: "") },
-        trailingContent = { Text(text = repository.stars.toString()) },
-        leadingContent = { Text(text = repository.language ?: "") },
-        modifier = Modifier.clickable(
-            enabled = true,
-            onClick = onClick
-        )
-    )
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .clickable { onClick() },
+        shape = MaterialTheme.shapes.medium
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            NetworkImage(
+                imageUrl = repository.avatarUrl,
+                modifier = Modifier
+                    .width(40.dp)
+                    .height(40.dp)
+            )
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = repository.fullName,
+                    style = SoopTypography.headlineSmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = repository.description ?: "",
+                    style = SoopTypography.bodyMedium,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    color = DarkGrey
+                )
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column(
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Default.Star,
+                        contentDescription = null,
+                        tint = Yellow
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = repository.stars.toString(),
+                        style = SoopTypography.bodyMedium
+                    )
+                }
+                repository.language?.let { language ->
+                    languageColors[language]?.let { color ->
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Circle,
+                                contentDescription = null,
+                                tint = color,
+                                modifier = Modifier.padding(4.dp)
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = language,
+                                style = SoopTypography.bodyMedium,
+                                color = DarkGrey
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
+
 
 @Composable
 private fun SearchToolbar(

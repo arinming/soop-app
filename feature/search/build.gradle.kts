@@ -14,7 +14,7 @@ dependencies {
     implementation(libs.paging.common)
     implementation(libs.paging.compose)
     implementation(libs.paging.runtime)
-    
+
     testImplementation(libs.hilt.android.testing)
     testImplementation(libs.robolectric)
 
