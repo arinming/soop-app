@@ -20,6 +20,7 @@ import com.soop.designsystem.R.string
 import com.soop.designsystem.SoopBottomSheet
 import com.soop.designsystem.SoopButton
 import com.soop.model.RepositoryDetail
+import com.soop.model.UserDetail
 
 @Composable
 fun RepositoryScreen(
@@ -32,24 +33,19 @@ fun RepositoryScreen(
 
     RepositoryScreen(
         repositoryUiState = repositoryUiState,
+        showUserInfoBottomSheet = showUserInfoBottomSheet,
+        onDismissRequest = { viewModel.fetchShowUserInfoBottomSheet(false) },
         onMoreClick = { viewModel.fetchShowUserInfoBottomSheet(true) },
         modifier = modifier,
     )
-
-    if (showUserInfoBottomSheet) {
-        SoopBottomSheet(
-            onDismissRequest = { viewModel.fetchShowUserInfoBottomSheet(false) },
-            content = {
-                Text("zzz")
-            },
-        )
-    }
 }
 
 @Composable
 internal fun RepositoryScreen(
     repositoryUiState: RepositoryUiState,
+    showUserInfoBottomSheet: Boolean,
     modifier: Modifier = Modifier,
+    onDismissRequest: () -> Unit = {},
     onMoreClick: () -> Unit,
 ) {
     Column(
@@ -75,9 +71,21 @@ internal fun RepositoryScreen(
                     repositoryDetail = repositoryUiState.repositoryDetail,
                     onMoreClick = onMoreClick
                 )
+                if (showUserInfoBottomSheet) {
+                    SoopBottomSheet(
+                        onDismissRequest = onDismissRequest,
+                        content = {
+                            UserInfoBottomSheet(
+                                userDetail = repositoryUiState.userDetail
+                            )
+                        },
+                    )
+                }
             }
         }
     }
+
+
 }
 
 @Composable
@@ -99,6 +107,15 @@ fun RepositoryDetail(
         Text(repositoryDetail.forksCount.toString())
         Text(repositoryDetail.stargazersCount.toString())
         Text(repositoryDetail.watchersCount.toString())
+    }
+}
+
+@Composable
+fun UserInfoBottomSheet(
+    userDetail: UserDetail
+) {
+    Column {
+        Text("${userDetail.followers}")
     }
 }
 

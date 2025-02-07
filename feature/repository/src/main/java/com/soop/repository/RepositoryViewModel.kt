@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -26,19 +26,21 @@ class RepositoryViewModel @Inject constructor(
     private val _showUserInfoBottomSheet = MutableStateFlow(false)
     val showUserInfoBottomSheet: StateFlow<Boolean> = _showUserInfoBottomSheet.asStateFlow()
 
-    val repositoryUiState: StateFlow<RepositoryUiState> = githubRepository.getRepositoryDetail(
-        owner = owner,
-        repo = repo
-    ).map {
-        RepositoryUiState.Success(
-            repositoryDetail = it
-        )
-    }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = RepositoryUiState.Loading
-        )
+    val repositoryUiState: StateFlow<RepositoryUiState> =
+        combine(
+            githubRepository.getRepositoryDetail(owner, repo),
+            githubRepository.getUserDetail(owner)
+        ) { repositoryDetail, userDetail ->
+            RepositoryUiState.Success(
+                repositoryDetail = repositoryDetail,
+                userDetail = userDetail
+            )
+        }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = RepositoryUiState.Loading
+            )
 
     fun fetchShowUserInfoBottomSheet(show: Boolean) {
         _showUserInfoBottomSheet.value = show
