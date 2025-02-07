@@ -2,6 +2,7 @@ package com.soop.repository
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Bookmark
@@ -12,8 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.soop.designsystem.SoopButton
+import com.soop.model.RepositoryDetail
 
 @Composable
 fun RepositoryScreen(
@@ -46,16 +50,55 @@ internal fun RepositoryScreen(
                     CircularProgressIndicator()
                 }
             }
+
             RepositoryUiState.Error -> {
                 Icons.Rounded.Error
             }
+
             is RepositoryUiState.Success -> {
-                Text(repositoryUiState.repositoryDetail.repoName)
-                Text(repositoryUiState.repositoryDetail.userName)
-                Text(repositoryUiState.repositoryDetail.forksCount.toString())
-                Text(repositoryUiState.repositoryDetail.stargazersCount.toString())
-                Text(repositoryUiState.repositoryDetail.watchersCount.toString())
+                RepositoryDetail(
+                    repositoryDetail = repositoryUiState.repositoryDetail
+                )
             }
         }
     }
+}
+
+@Composable
+fun RepositoryDetail(
+    repositoryDetail: RepositoryDetail
+) {
+    Column {
+        Text(repositoryDetail.repoName)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(repositoryDetail.userName)
+            SoopButton(
+                onClick = { },
+                text = {
+                    Text("MORE")
+                }
+            )
+        }
+        Text(repositoryDetail.forksCount.toString())
+        Text(repositoryDetail.stargazersCount.toString())
+        Text(repositoryDetail.watchersCount.toString())
+    }
+}
+
+@Preview
+@Composable
+fun RepositoryDetailPreview() {
+    RepositoryDetail(
+        repositoryDetail = RepositoryDetail(
+            repoName = "repoName",
+            userName = "userName",
+            forksCount = 1,
+            stargazersCount = 1,
+            watchersCount = 1,
+            description = "description",
+            avatarUrl = ""
+        )
+    )
 }
