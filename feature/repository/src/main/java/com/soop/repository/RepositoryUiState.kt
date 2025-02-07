@@ -9,6 +9,6 @@ sealed interface RepositoryUiState {
     data class Success(
         val repositoryDetail: RepositoryDetail,
         val userDetail: UserDetail,
-        val userLanguage: List<String>
+        val userLanguage: String
     ) : RepositoryUiState
 }

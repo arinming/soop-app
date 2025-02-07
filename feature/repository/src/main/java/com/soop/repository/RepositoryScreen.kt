@@ -113,13 +113,13 @@ fun RepositoryDetail(
 
 @Composable
 fun UserInfoBottomSheet(
-    language: List<String> = emptyList(),
+    language: String = "",
     userDetail: UserDetail
 ) {
     Column {
         Text("${userDetail.followers}")
         Text("${userDetail.following}")
-        Text("$language")
+        Text(language)
     }
 }
 

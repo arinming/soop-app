@@ -32,11 +32,19 @@ class RepositoryViewModel @Inject constructor(
             githubRepository.getUserDetail(owner),
             githubRepository.getUserLanguage(owner),
         ) { repositoryDetail, userDetail, userLanguage ->
-            RepositoryUiState.Success(
-                repositoryDetail = repositoryDetail,
-                userDetail = userDetail,
-                userLanguage = userLanguage.map { it.language }
-            )
+            if (
+                repositoryDetail.repoName == ""
+                || userDetail.login == ""
+            ) {
+                return@combine RepositoryUiState.Error
+            } else {
+                RepositoryUiState.Success(
+                    repositoryDetail = repositoryDetail,
+                    userDetail = userDetail,
+                    userLanguage = userLanguage.map { it.language }.distinct().joinToString(", ")
+                        .takeIf { it.isNotBlank() } ?: ""
+                )
+            }
         }
             .stateIn(
                 scope = viewModelScope,
