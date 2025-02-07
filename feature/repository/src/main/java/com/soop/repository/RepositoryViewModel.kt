@@ -18,8 +18,8 @@ class RepositoryViewModel @Inject constructor(
     githubRepository: GithubRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    val owner = savedStateHandle.toRoute<RepositoryRoute>().owner
-    val repo = savedStateHandle.toRoute<RepositoryRoute>().repo
+    private val owner = savedStateHandle.toRoute<RepositoryRoute>().owner
+    private val repo = savedStateHandle.toRoute<RepositoryRoute>().repo
 
     val repositoryUiState: StateFlow<RepositoryUiState> = githubRepository.getRepositoryDetail(
         owner = owner,

@@ -42,7 +42,6 @@ fun SoopApp(
 
             destination?.let {
                 SoopTopAppBar(
-                    titleRes = it.titleTextId,
                     onBackClick = { appState.navController.popBackStack() },
                     isNavigationIcon = it.isNavigationIcon,
                 )

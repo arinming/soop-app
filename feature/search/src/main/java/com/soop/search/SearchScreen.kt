@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -48,13 +49,11 @@ fun SearchScreen(
 ) {
     val searchUiState by viewModel.searchUiState.collectAsStateWithLifecycle()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
-    val githubList = viewModel.githubFlow.collectAsLazyPagingItems()
 
     SearchScreen(
         modifier = modifier,
         searchQuery = searchQuery,
         searchUiState = searchUiState,
-        githubList = githubList,
         onSearchQueryChanged = viewModel::onSearchQueryChanged,
         onSearchTriggered = viewModel::onSearchTriggered,
         onRepositoryClick = onRepositoryClick
@@ -65,8 +64,7 @@ fun SearchScreen(
 internal fun SearchScreen(
     modifier: Modifier = Modifier,
     searchQuery: String = "",
-    searchUiState: SearchUiState = SearchUiState.Loading,
-    githubList: LazyPagingItems<GithubRepositoryInfo>,
+    searchUiState: SearchUiState = SearchUiState.Empty,
     onSearchQueryChanged: (String) -> Unit = {},
     onSearchTriggered: (String) -> Unit = {},
     onRepositoryClick: (String, String) -> Unit
@@ -81,18 +79,31 @@ internal fun SearchScreen(
             onSearchTriggered = onSearchTriggered,
         )
         when (searchUiState) {
-            SearchUiState.Loading,
+            SearchUiState.Loading -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+
             SearchUiState.Error -> Unit
+            SearchUiState.Empty -> Unit
 
             is SearchUiState.Success -> {
+                val lazyPagingItems = searchUiState.githubRepositories.collectAsLazyPagingItems()
                 SearchResultList(
-                    repositories = githubList,
+                    repositories = lazyPagingItems,
                     onRepositoryClick = onRepositoryClick
                 )
             }
+
         }
     }
 }
+
 
 @Composable
 private fun SearchResultList(
@@ -158,7 +169,6 @@ private fun SearchToolbar(
         )
     }
 }
-
 
 @Composable
 fun SearchTextField(

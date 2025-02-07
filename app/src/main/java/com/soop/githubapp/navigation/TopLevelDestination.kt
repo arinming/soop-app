@@ -9,12 +9,10 @@ import kotlin.reflect.KClass
 
 enum class TopLevelDestination(
     val route: KClass<*>,
-    @StringRes val titleTextId: Int,
     val isNavigationIcon: Boolean = false
 ) {
     REPOSITORY(
         route = RepositoryRoute::class,
-        titleTextId = string.search_top_bar,
         isNavigationIcon = true
     ),
 }
