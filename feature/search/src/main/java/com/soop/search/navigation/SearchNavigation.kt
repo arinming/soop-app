@@ -26,7 +26,7 @@ fun NavGraphBuilder.searchSection(
 ) {
     navigation<SearchBaseRoute>(startDestination = SearchRoute) {
         composable<SearchRoute> {
-            SearchRoute(
+            SearchScreen(
                 onRepositoryClick = onRepositoryClick
             )
         }

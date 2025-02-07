@@ -41,7 +41,7 @@ import com.soop.designsystem.theme.SoopTypography
 import com.soop.model.GithubRepositoryInfo
 
 @Composable
-internal fun SearchRoute(
+fun SearchScreen(
     onRepositoryClick: (String, String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = hiltViewModel()
@@ -62,7 +62,7 @@ internal fun SearchRoute(
 }
 
 @Composable
-fun SearchScreen(
+internal fun SearchScreen(
     modifier: Modifier = Modifier,
     searchQuery: String = "",
     searchUiState: SearchUiState = SearchUiState.Loading,

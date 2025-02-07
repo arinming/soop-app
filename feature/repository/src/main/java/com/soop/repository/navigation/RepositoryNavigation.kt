@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.composable
-import com.soop.repository.RepositoryRoute
+import com.soop.repository.RepositoryScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -25,6 +25,6 @@ fun NavController.navigateToRepository(
 
 fun NavGraphBuilder.repositoryScreen() {
     composable<RepositoryRoute> {
-        RepositoryRoute()
+        RepositoryScreen()
     }
 }
