@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="search_top_bar">상세 페이지</string>
+    <string name="feature_repository_user_more_button">MORE</string>
 </resources>

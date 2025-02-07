@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.soop.designsystem.theme.Blue
 
 @Composable
 fun SoopButton(
@@ -25,7 +26,7 @@ fun SoopButton(
         modifier = modifier,
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.onBackground,
+            containerColor = Blue,
         ),
         contentPadding = contentPadding,
         content = content,

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Bookmark
 import androidx.compose.material.icons.rounded.Error
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -13,9 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.soop.designsystem.R.string
+import com.soop.designsystem.SoopBottomSheet
 import com.soop.designsystem.SoopButton
 import com.soop.model.RepositoryDetail
 
@@ -26,16 +28,29 @@ fun RepositoryScreen(
 ) {
     val repositoryUiState: RepositoryUiState
             by viewModel.repositoryUiState.collectAsStateWithLifecycle()
+    val showUserInfoBottomSheet: Boolean by viewModel.showUserInfoBottomSheet.collectAsStateWithLifecycle()
+
     RepositoryScreen(
         repositoryUiState = repositoryUiState,
+        onMoreClick = { viewModel.fetchShowUserInfoBottomSheet(true) },
         modifier = modifier,
     )
+
+    if (showUserInfoBottomSheet) {
+        SoopBottomSheet(
+            onDismissRequest = { viewModel.fetchShowUserInfoBottomSheet(false) },
+            content = {
+                Text("zzz")
+            },
+        )
+    }
 }
 
 @Composable
 internal fun RepositoryScreen(
     repositoryUiState: RepositoryUiState,
     modifier: Modifier = Modifier,
+    onMoreClick: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -57,7 +72,8 @@ internal fun RepositoryScreen(
 
             is RepositoryUiState.Success -> {
                 RepositoryDetail(
-                    repositoryDetail = repositoryUiState.repositoryDetail
+                    repositoryDetail = repositoryUiState.repositoryDetail,
+                    onMoreClick = onMoreClick
                 )
             }
         }
@@ -66,7 +82,8 @@ internal fun RepositoryScreen(
 
 @Composable
 fun RepositoryDetail(
-    repositoryDetail: RepositoryDetail
+    repositoryDetail: RepositoryDetail,
+    onMoreClick: () -> Unit = {}
 ) {
     Column {
         Text(repositoryDetail.repoName)
@@ -75,10 +92,8 @@ fun RepositoryDetail(
         ) {
             Text(repositoryDetail.userName)
             SoopButton(
-                onClick = { },
-                text = {
-                    Text("MORE")
-                }
+                onClick = onMoreClick,
+                text = { Text(stringResource(string.feature_repository_user_more_button)) }
             )
         }
         Text(repositoryDetail.forksCount.toString())
