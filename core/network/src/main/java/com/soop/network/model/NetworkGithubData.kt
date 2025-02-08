@@ -38,7 +38,7 @@ data class Owner(
 
 fun Repository.asExternalModel(): GithubRepositoryInfo =
     GithubRepositoryInfo(
-        name = this.owner.username,
+        name = this.name,
         fullName = this.fullName,
         description = this.description,
         stars = this.stars,
