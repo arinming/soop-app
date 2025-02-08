@@ -1,5 +1,6 @@
 package com.soop.repository
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,9 +11,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.rounded.Error
@@ -23,6 +25,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,6 +38,10 @@ import com.soop.designsystem.R.string
 import com.soop.designsystem.SoopBottomSheet
 import com.soop.designsystem.SoopButton
 import com.soop.designsystem.theme.Black
+import com.soop.designsystem.theme.Blue
+import com.soop.designsystem.theme.DarkBlue
+import com.soop.designsystem.theme.DarkGrey
+import com.soop.designsystem.theme.GreyDark
 import com.soop.designsystem.theme.SoopTypography
 import com.soop.model.RepositoryDetail
 import com.soop.model.UserDetail
@@ -204,11 +213,84 @@ fun UserInfoBottomSheet(
     userDetail: UserDetail
 ) {
     Column(
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(24.dp)
     ) {
-        Text("${userDetail.followers}")
-        Text("${userDetail.following}")
-        Text(language)
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            NetworkImage(
+                imageUrl = userDetail.avatarUrl,
+                modifier = Modifier
+                    .width(40.dp)
+                    .height(40.dp)
+                    .clip(CircleShape)
+                    .background(Color.Gray)
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Text(
+                text = userDetail.login,
+                style = SoopTypography.titleLarge
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            FollowInfo(label = "Followers", count = userDetail.followers)
+            FollowInfo(label = "Following", count = userDetail.following)
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        if (language.isNotBlank()) {
+            Column {
+                Text(
+                    text = "Languages",
+                    style = SoopTypography.titleMedium,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+                LanguageChip(language)
+            }
+        }
+    }
+}
+
+
+@Composable
+fun FollowInfo(label: String, count: Int) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            text = "$count",
+            style = SoopTypography.labelMedium,
+            color = DarkBlue
+        )
+        Text(
+            text = label,
+            style = SoopTypography.labelSmall,
+            color = GreyDark
+        )
+    }
+}
+
+@Composable
+fun LanguageChip(language: String) {
+    Box(
+        modifier = Modifier
+            .background(LightGray, shape = RoundedCornerShape(50))
+            .padding(horizontal = 12.dp, vertical = 6.dp)
+    ) {
+        Text(
+            text = language,
+            style = SoopTypography.labelMedium,
+            color = DarkBlue
+        )
     }
 }
 
