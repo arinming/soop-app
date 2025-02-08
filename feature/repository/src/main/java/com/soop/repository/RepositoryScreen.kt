@@ -65,6 +65,7 @@ internal fun RepositoryScreen(
 ) {
     Column(
         modifier = modifier
+            .padding(16.dp)
     ) {
         when (repositoryUiState) {
             RepositoryUiState.Loading -> {
@@ -112,7 +113,8 @@ fun RepositoryDetail(
     Column {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
         ) {
             NetworkImage(
                 imageUrl = repositoryDetail.avatarUrl,
@@ -201,7 +203,9 @@ fun UserInfoBottomSheet(
     language: String = "",
     userDetail: UserDetail
 ) {
-    Column {
+    Column(
+        modifier = Modifier.padding(16.dp),
+    ) {
         Text("${userDetail.followers}")
         Text("${userDetail.following}")
         Text(language)

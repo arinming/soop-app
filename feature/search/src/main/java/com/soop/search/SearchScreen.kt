@@ -292,6 +292,7 @@ fun SearchTextField(
         ),
         modifier = Modifier
             .fillMaxWidth()
+            .padding(16.dp)
             .focusRequester(focusRequester)
             .background(White),
         textStyle = SoopTypography.bodyLarge.copy(color = DarkGrey),
