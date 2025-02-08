@@ -1,12 +1,23 @@
 package com.soop.repository
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.rounded.Error
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,11 +25,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.soop.designsystem.NetworkImage
 import com.soop.designsystem.R.string
 import com.soop.designsystem.SoopBottomSheet
 import com.soop.designsystem.SoopButton
+import com.soop.designsystem.theme.Black
+import com.soop.designsystem.theme.SoopTypography
 import com.soop.model.RepositoryDetail
 import com.soop.model.UserDetail
 
@@ -95,19 +110,89 @@ fun RepositoryDetail(
     onMoreClick: () -> Unit = {}
 ) {
     Column {
-        Text(repositoryDetail.repoName)
         Row(
             verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text(repositoryDetail.userName)
+            NetworkImage(
+                imageUrl = repositoryDetail.avatarUrl,
+                modifier = Modifier
+                    .width(60.dp)
+                    .height(60.dp)
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Text(
+                text = repositoryDetail.userName,
+                style = SoopTypography.headlineSmall
+            )
+            Spacer(modifier = Modifier.width(16.dp))
             SoopButton(
                 onClick = onMoreClick,
                 text = { Text(stringResource(string.feature_repository_user_more_button)) }
             )
         }
-        Text(repositoryDetail.forksCount.toString())
-        Text(repositoryDetail.stargazersCount.toString())
-        Text(repositoryDetail.watchersCount.toString())
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+
+        Text(
+            text = repositoryDetail.repoName,
+            style = SoopTypography.headlineMedium,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+
+        if (!repositoryDetail.description.isNullOrBlank()) {
+            Text(
+                text = "${repositoryDetail.description}",
+                style = SoopTypography.bodyMedium,
+                modifier = Modifier.padding(bottom = 12.dp)
+            )
+        }
+
+
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            StatItem(
+                icon = Icons.Default.Star,
+                value = repositoryDetail.stargazersCount,
+                label = "Stars"
+            )
+            StatItem(
+                icon = Icons.Default.Visibility,
+                value = repositoryDetail.watchersCount,
+                label = "Watchers"
+            )
+            StatItem(
+                icon = Icons.AutoMirrored.Filled.Send,
+                value = repositoryDetail.forksCount,
+                label = "Forks"
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+    }
+}
+
+
+@Composable
+fun StatItem(icon: androidx.compose.ui.graphics.vector.ImageVector, value: Int, label: String) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = Black,
+            modifier = Modifier.width(20.dp)
+        )
+        Spacer(modifier = Modifier.width(4.dp))
+        Text(
+            text = "$value $label",
+            style = SoopTypography.bodySmall
+        )
     }
 }
 
