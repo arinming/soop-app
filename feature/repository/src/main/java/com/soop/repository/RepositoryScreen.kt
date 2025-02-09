@@ -38,9 +38,7 @@ import com.soop.designsystem.R.string
 import com.soop.designsystem.SoopBottomSheet
 import com.soop.designsystem.SoopButton
 import com.soop.designsystem.theme.Black
-import com.soop.designsystem.theme.Blue
 import com.soop.designsystem.theme.DarkBlue
-import com.soop.designsystem.theme.DarkGrey
 import com.soop.designsystem.theme.GreyDark
 import com.soop.designsystem.theme.SoopTypography
 import com.soop.model.RepositoryDetail
