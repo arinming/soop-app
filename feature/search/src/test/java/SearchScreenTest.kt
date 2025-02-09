@@ -1,6 +1,6 @@
 import androidx.lifecycle.SavedStateHandle
 import androidx.paging.PagingData
-import com.soop.data.repository.GithubRepository
+import com.soop.domain.GetGithubUseCase
 import com.soop.model.GithubRepositoryInfo
 import com.soop.search.SearchUiState
 import com.soop.search.SearchViewModel
@@ -15,14 +15,14 @@ import kotlin.test.assertIs
 class SearchViewModelTest {
 
     private lateinit var viewModel: SearchViewModel
-    private lateinit var githubRepository: GithubRepository
+    private lateinit var githubUseCase: GetGithubUseCase
 
     @Before
     fun setup() {
-        githubRepository = mock(GithubRepository::class.java)
+        githubUseCase = mock(GetGithubUseCase::class.java)
         viewModel = SearchViewModel(
-            githubRepository = githubRepository,
-            savedStateHandle = SavedStateHandle()
+            getGithubUseCase = githubUseCase,
+            savedStateHandle = mock(SavedStateHandle::class.java)
         )
     }
 
@@ -53,7 +53,7 @@ class SearchViewModelTest {
         )
         val fakePagingData = PagingData.from(fakeRepositories)
 
-        whenever(githubRepository.getGithub("android")).thenReturn(flowOf(fakePagingData))
+        whenever(githubUseCase("android")).thenReturn(flowOf(fakePagingData))
 
         // When
         viewModel.onSearchTriggered("android")
@@ -66,7 +66,7 @@ class SearchViewModelTest {
     @Test
     fun `search with invalid query should return empty result`() = runTest {
         // Given
-        whenever(githubRepository.getGithub("invalid_query")).thenReturn(flowOf(PagingData.empty()))
+        whenever(githubUseCase("invalid_query")).thenReturn(flowOf(PagingData.empty()))
 
         // When
         viewModel.onSearchTriggered("invalid_query")
