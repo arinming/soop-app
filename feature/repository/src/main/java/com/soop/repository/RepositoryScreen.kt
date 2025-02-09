@@ -168,17 +168,17 @@ fun RepositoryDetail(
             StatItem(
                 icon = Icons.Default.Star,
                 value = repositoryDetail.stargazersCount,
-                label = "Stars"
+                label = stringResource(string.feature_repository_user_stars)
             )
             StatItem(
                 icon = Icons.Default.Visibility,
                 value = repositoryDetail.watchersCount,
-                label = "Watchers"
+                label = stringResource(string.feature_repository_user_watchers)
             )
             StatItem(
                 icon = Icons.AutoMirrored.Filled.Send,
                 value = repositoryDetail.forksCount,
-                label = "Forks"
+                label = stringResource(string.feature_repository_user_forks)
             )
         }
 
@@ -241,8 +241,14 @@ fun UserInfoBottomSheet(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth()
         ) {
-            FollowInfo(label = "Followers", count = userDetail.followers)
-            FollowInfo(label = "Following", count = userDetail.following)
+            FollowInfo(
+                label = stringResource(string.feature_repository_user_followers),
+                count = userDetail.followers
+            )
+            FollowInfo(
+                label = stringResource(string.feature_repository_user_following),
+                count = userDetail.following
+            )
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -250,7 +256,7 @@ fun UserInfoBottomSheet(
         if (language.isNotBlank()) {
             Column {
                 Text(
-                    text = "Languages",
+                    text = stringResource(string.feature_repository_user_language),
                     style = SoopTypography.titleMedium,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )

@@ -40,6 +40,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -48,8 +49,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.soop.designsystem.NetworkImage
+import com.soop.designsystem.R.string
 import com.soop.designsystem.theme.Blue
 import com.soop.designsystem.theme.DarkGrey
+import com.soop.designsystem.theme.GreyDark
 import com.soop.designsystem.theme.SoopTypography
 import com.soop.designsystem.theme.languageColors
 import com.soop.model.GithubRepositoryInfo
@@ -103,7 +106,19 @@ internal fun SearchScreen(
             }
 
             SearchUiState.Error -> Unit
-            SearchUiState.Empty -> Unit
+            SearchUiState.Empty -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        stringResource(string.feature_search_empty),
+                        style = SoopTypography.bodyMedium,
+                        color = GreyDark
+                    )
+                }
+            }
 
             is SearchUiState.Success -> {
                 val lazyPagingItems = searchUiState.githubRepositories.collectAsLazyPagingItems()
@@ -112,7 +127,6 @@ internal fun SearchScreen(
                     onRepositoryClick = onRepositoryClick
                 )
             }
-
         }
     }
 }
