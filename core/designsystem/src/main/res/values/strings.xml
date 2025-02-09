@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="search_top_bar">검색</string>
+    <string name="feature_search_empty">검색어를 입력해 주세요</string>
+
+    <string name="feature_repository_user_more_button">MORE</string>
+    <string name="feature_repository_user_stars">Stars</string>
+    <string name="feature_repository_user_watchers">Watchers</string>
+    <string name="feature_repository_user_forks">Forks</string>
+    <string name="feature_repository_user_followers">Followers</string>
+    <string name="feature_repository_user_following">Following</string>
+    <string name="feature_repository_user_language">Language</string>
 </resources>

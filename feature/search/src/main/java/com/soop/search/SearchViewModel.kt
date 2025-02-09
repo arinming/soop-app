@@ -1,56 +1,46 @@
 package com.soop.search
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.soop.data.repository.GithubRepository
-import com.soop.model.GithubRepositoryInfo
-import com.soop.model.RepositoryDetail
-import com.soop.model.UserDetail
+import com.soop.domain.GetGithubUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val githubRepository: GithubRepository
+    private val getGithubUseCase: GetGithubUseCase,
+    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    private val _githubFlow: MutableStateFlow<Flow<PagingData<GithubRepositoryInfo>>> =
-        MutableStateFlow(emptyFlow())
+    val searchQuery = savedStateHandle.getStateFlow(key = SEARCH_QUERY, initialValue = "")
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val githubFlow: Flow<PagingData<GithubRepositoryInfo>> =
-        _githubFlow.flatMapLatest { it }
+    private val _searchUiState = MutableStateFlow<SearchUiState>(SearchUiState.Empty)
+    val searchUiState: StateFlow<SearchUiState> = _searchUiState
 
-    private val _repositoryFlow: MutableStateFlow<Flow<RepositoryDetail>> =
-        MutableStateFlow(emptyFlow())
-    val repositoryFlow: Flow<RepositoryDetail> =
-        _repositoryFlow.flatMapLatest { it }
-
-    private val _userFlow: MutableStateFlow<Flow<UserDetail>> =
-        MutableStateFlow(emptyFlow())
-    val userFlow: Flow<UserDetail> =
-        _userFlow.flatMapLatest { it }
-
-    fun getGithubData(query: String) {
-        _githubFlow.value = githubRepository.getGithub(query).cachedIn(viewModelScope)
+    fun onSearchQueryChanged(query: String) {
+        savedStateHandle[SEARCH_QUERY] = query
     }
 
-    fun getRepositoryDetail() {
-        _repositoryFlow.value = githubRepository.getRepositoryDetail(
-            owner = "octocat",
-            repo = "Hello-World"
-        )
-    }
+    fun onSearchTriggered(query: String) {
+        if (query.isBlank()) return
 
-    fun getUserDetail() {
-        _userFlow.value = githubRepository.getUserDetail(
-            username = "arinming"
-        )
+        _searchUiState.value = SearchUiState.Loading
+
+        viewModelScope.launch {
+            getGithubUseCase(query)
+                .cachedIn(viewModelScope)
+                .collect { pagingData ->
+                    _searchUiState.value = SearchUiState.Success(
+                        githubRepositories = flow { emit(pagingData) }
+                    )
+                }
+        }
     }
 }
+
+private const val SEARCH_QUERY = "searchQuery"

@@ -3,15 +3,18 @@ package com.soop.network.datasource
 import com.soop.network.model.NetworkGithubData
 import com.soop.network.model.NetworkRepositoryDetail
 import com.soop.network.model.NetworkUserDetail
+import com.soop.network.model.NetworkUserLanguage
 import com.soop.network.service.GithubService
 import com.soop.network.service.RepositoryDetailService
 import com.soop.network.service.UserDetailService
+import com.soop.network.service.UserLanguageService
 import javax.inject.Inject
 
 class GithubDataSourceImpl @Inject constructor(
     private val githubService: GithubService,
     private val repositoryDetailService: RepositoryDetailService,
-    private val userDetailService: UserDetailService
+    private val userDetailService: UserDetailService,
+    private val userLanguageService: UserLanguageService
 ) : GithubDataSource {
     override suspend fun getGithub(
         query: String,
@@ -39,6 +42,12 @@ class GithubDataSourceImpl @Inject constructor(
         username: String
     ): NetworkUserDetail {
         return userDetailService.getUserDetail(
+            username = username
+        )
+    }
+
+    override suspend fun getUserLanguage(username: String): List<NetworkUserLanguage> {
+        return userLanguageService.getUserLanguage(
             username = username
         )
     }

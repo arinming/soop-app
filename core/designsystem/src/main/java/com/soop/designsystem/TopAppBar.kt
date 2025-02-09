@@ -15,13 +15,12 @@ import androidx.compose.ui.res.stringResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SoopTopAppBar(
-    @StringRes titleRes: Int,
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
     isNavigationIcon: Boolean = false
 ) {
     CenterAlignedTopAppBar(
-        title = { Text(text = stringResource(id = titleRes)) },
+        title = {},
         modifier = modifier,
         navigationIcon = {
             if (isNavigationIcon) {

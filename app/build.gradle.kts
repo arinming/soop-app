@@ -28,6 +28,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.feature.repository)
     implementation(projects.feature.search)
 
     implementation(projects.core.common)
@@ -53,7 +54,6 @@ dependencies {
 
     testImplementation(libs.hilt.android.testing)
     testImplementation(libs.kotlin.test)
-
     testImplementation(libs.androidx.navigation.testing)
     testImplementation(libs.robolectric)
     testImplementation(libs.roborazzi)
