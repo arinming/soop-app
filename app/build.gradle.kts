@@ -54,7 +54,6 @@ dependencies {
 
     testImplementation(libs.hilt.android.testing)
     testImplementation(libs.kotlin.test)
-
     testImplementation(libs.androidx.navigation.testing)
     testImplementation(libs.robolectric)
     testImplementation(libs.roborazzi)
