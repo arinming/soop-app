@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -132,14 +133,19 @@ fun RepositoryDetail(
             Spacer(modifier = Modifier.width(12.dp))
             Text(
                 text = repositoryDetail.userName,
-                style = SoopTypography.headlineSmall
+                style = SoopTypography.headlineSmall,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = 8.dp)
             )
-            Spacer(modifier = Modifier.width(16.dp))
             SoopButton(
                 onClick = onMoreClick,
-                text = { Text(stringResource(string.feature_repository_user_more_button)) }
+                text = { Text(stringResource(string.feature_repository_user_more_button)) },
+                modifier = Modifier
+                    .wrapContentWidth()
             )
         }
+
 
         Spacer(modifier = Modifier.height(16.dp))
 

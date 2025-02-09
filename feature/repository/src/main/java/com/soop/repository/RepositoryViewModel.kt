@@ -42,8 +42,7 @@ class RepositoryViewModel @Inject constructor(
             RepositoryUiState.Success(
                 repositoryDetail = repositoryDetail,
                 userDetail = userDetail,
-                userLanguage = userLanguage.joinToString(", ") { it.language }
-                    .takeIf { it.isNotBlank() } ?: ""
+                userLanguage = userLanguage
             )
         }
     }.stateIn(
